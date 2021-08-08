@@ -45,6 +45,6 @@ def is_full_house(roll):
   else:
     return False
 
-fh_roll = [1,3,2,3,1]
+fh_roll = [1,3,3,3,1]
 
 print(is_full_house(fh_roll))

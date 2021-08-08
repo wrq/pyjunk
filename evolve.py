@@ -118,4 +118,4 @@ def mutate_loop(n = 1_000_000, mutations = 1):
       
   return fitness(goal, res.slots), res.slots
 
-print(mutate_loop(n = 500_000_000, mutations = 5))
+print(mutate_loop(n = 50_000_000, mutations = 5))

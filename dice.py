@@ -28,11 +28,17 @@ def sum_ratios():
   
   return res
 
-print(sum_ratios())
+# print(sum_ratios())
 
 
 def sums_from_dice(dice):
   return set(map(sum, list(more.distinct_combinations(dice, 2))))
 
-# print(sums_from_dice((1,2,3,4)))
+print(sums_from_dice((1,2,3,4)))
 # {3, 4, 5, 6, 7}
+
+def sum_pairs(roll):
+  res = []
+  sums = sums_from_dice(roll)
+  for sum in sums:
+    
