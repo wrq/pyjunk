@@ -12,7 +12,7 @@ GRAMMAR = {
 
 TOKEN = re.compile(r"<[\w]+>")
 
-def gramrepl(m):
+def gramreplace(m):
   gx = GRAMMAR[m.group(0)]
   if isinstance(gx, list):
     return random.choice(gx)
@@ -28,8 +28,16 @@ def match(gr, txt = None):
   if not TOKEN.search(txt):
     return txt
   else:
-    mx = TOKEN.sub(gramrepl, txt)
+    mx = TOKEN.sub(gramreplace, txt)
     return match(GRAMMAR, mx)
 
-for _ in range(1, 10000):
-  print(match(GRAMMAR))
+
+x = match(GRAMMAR)
+for _ in range(1, 1000):
+  m = match(GRAMMAR)
+  print(len(m))
+  if len(m) > len(x):
+    x = m
+  #print(match(GRAMMAR))
+
+print(x, len(x))

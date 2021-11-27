@@ -1,6 +1,7 @@
 import functools
 import typing
 import random
+from itertools import takewhile
 
 
 
@@ -62,3 +63,15 @@ def bogobench(maxn = 50):
 
 # bogobench(15)
 
+def aux(x, m):
+  print(x)
+  if x > m:
+    return True
+  else:
+    return False
+
+for z in takewhile(lambda lx: lx>=50, range(1,100)):
+  print(z)
+
+# hm, well, you see what I'm trying to do...
+# (thinking emoji....)
