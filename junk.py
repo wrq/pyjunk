@@ -11,5 +11,6 @@ def compare(start: int, offset: int, iters: int):
     print(f"start: {start} offset: {offset} iters: {iters}")
     print(f"a: {sum(a)}")
     print(f"b: {sum(b)}")
+    print(f"ratio: {sum(a) / sum(b)}")
 
-compare(1, 100, 1000000000)
+compare(100, 15000, 10000)
