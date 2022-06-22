@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import itertools
 
 ops = list("+-/*")
@@ -29,3 +30,8 @@ print(len(all_candidates))
 
 # for x in all_candidates[1:5000]:
 #   print(x, sanity(x))
+=======
+symbols = list("1234567890+-/*")
+print(symbols)
+
+>>>>>>> 3e68f2aa3d7f972d7bc5d35672a8f4df375d8bce
