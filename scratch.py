@@ -76,3 +76,12 @@ for z in takewhile(lambda lx: lx>=50, range(1,100)):
 # hm, well, you see what I'm trying to do...
 # (thinking emoji....)
 
+bezos = 250_000_000_000
+account  = 10_000
+years    = 0
+
+while account <= bezos:
+  account *= 1.005
+  years   += 1
+
+print(account, years)
