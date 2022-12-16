@@ -1,5 +1,3 @@
-from functools import cache
-import itertools
 import random
 
 
@@ -58,4 +56,3 @@ for word in aux_words:
 
 print(f"{len(words)} words to start with...")
 evolve(100_000, words)
-

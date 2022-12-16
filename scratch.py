@@ -70,18 +70,71 @@ def aux(x, m):
   else:
     return False
 
-for z in takewhile(lambda lx: lx>=50, range(1,100)):
+for z in takewhile(lambda lx: lx >= 50, list(range(1,100))):
   print(z)
 
 # hm, well, you see what I'm trying to do...
 # (thinking emoji....)
 
-bezos = 250_000_000_000_000
-account  = 10_000
-years    = 0
+import random
+import numpy as np
 
-while account <= bezos:
-  account *= 1.02
-  years   += 1
+def simulated_annealing(f, x0, T=1.0, T_min=0.00001, alpha=0.9, max_steps=1000):
+  """
+  Implements the simulated annealing algorithm to find the global minimum or maximum of a function.
 
-print(account, years)
+  Args:
+      f: The function to optimize.
+      x0: The initial value for the optimization.
+      T: The initial temperature for the annealing process.
+      T_min: The minimum temperature for the annealing process.
+      alpha: The temperature decay rate.
+      max_steps: The maximum number of steps to take before ending the optimization.
+
+  Returns:
+      The global minimum or maximum of the function.
+  """
+  x = x0
+
+  # Start the annealing process
+  for step in range(max_steps):
+      # Calculate the current value of the function
+      f_x = f(x)
+
+      # Generate a new random value
+      x_new = x + random.uniform(-1, 1)
+
+      # Calculate the value of the function at the new value
+      f_x_new = f(x_new)
+
+      # Calculate the change in value of the function
+      delta_f = f_x_new - f_x
+
+      # If the new value is better than the current value, always accept it
+      if delta_f < 0:
+          x = x_new
+      else:
+          # Calculate the probability of accepting the new value
+          p = 2.0**(-delta_f / T)
+
+          # Use the probability to decide whether to accept the new value
+          if random.uniform(0, 1) < p:
+              x = x_new
+
+      # Decrease the temperature according to the specified decay rate
+      T = alpha * T
+
+      # Stop the optimization when the temperature reaches the minimum value
+      if T < T_min:
+          break
+  return x
+
+# Define the function we want to optimize
+def f(x):
+    return x**2 + 10*np.sin(x)
+
+# Find the global minimum of the function
+result = simulated_annealing(f, x0=0, max_steps=100000)
+
+# Print the result
+print(result)

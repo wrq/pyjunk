@@ -36,17 +36,16 @@ def exclusive_pairs():
     return res
 
 
-a = unique_letters("flesh")
-b = unique_letters("shelf")
-print(f"a == b : {a == b}")
+# a = unique_letters("flesh")
+# b = unique_letters("shelf")
+# print(f"a == b : {a == b}")
 
-print(f"raise <- exclusive -> grout: {is_exclusive_to('raise', 'grout')}")
-# print(exclusive_pairs())
-# print(targets)
+# print(f"raise <- exclusive -> grout: {is_exclusive_to('raise', 'grout')}")
+# # print(exclusive_pairs())
+# # print(targets)
 
 
-def generate_wordpair():
-    alpha = random.choice(targets)
+def generate_wordpair(alpha):
     alpha_exclusives = [word for word in targets if is_exclusive_to(alpha, word)]
     if len(alpha_exclusives) == 0:
         return generate_wordpair()
@@ -55,10 +54,22 @@ def generate_wordpair():
     print(f"alpha, beta = {alpha}, {beta}")
     return (alpha, beta)
 
+def generate_all_pairs_for(alpha):
+    return [beta for beta in targets if is_exclusive_to(alpha, beta)]
 
+def all_valid_pairs():
+    res = []
+    for alpha in targets:
+        _pairs = generate_all_pairs_for(alpha)
+        for beta in _pairs:
+            res.append((alpha, beta))
+    return res
+    
 def xordle():
     print("new xordle ~~~")
-    alpha, beta = generate_wordpair()
+    alpha, beta = generate_wordpair(random.choice(targets))
 
 
 xordle()
+
+print(len(all_valid_pairs()))
