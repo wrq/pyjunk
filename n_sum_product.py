@@ -1,4 +1,5 @@
 import random
+from tqdm import tqdm
 
 def rand_n_sum_product(n = 20):
 	data = {"a": 0, "b": 0, "c": 0, "d": 0, "e": 0, "f": 2}
@@ -18,4 +19,12 @@ def trial(n = 20, trials = 1_000_000):
 			p, d = tp, td
 	return (p, d)
 
-print(trial(200, 5_000_000))
+def go():
+	res = {}
+	for x in range(6, 216):
+		r = trial(x, 5_000_000)
+		res[x] = r
+		print(x, r)
+	return res
+
+print(go())

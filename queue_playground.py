@@ -11,4 +11,4 @@ def zz():
         res.append(f":zz{(str(x).zfill(2))}: ")
     print("".join(res))
 
-#zz()
+zz()
