@@ -48,10 +48,10 @@ def exclusive_pairs():
 def generate_wordpair(alpha):
     alpha_exclusives = [word for word in targets if is_exclusive_to(alpha, word)]
     if len(alpha_exclusives) == 0:
-        return generate_wordpair()
+        return generate_wordpair(random.choice(targets))
     else:
         beta = random.choice(alpha_exclusives)
-    print(f"alpha, beta = {alpha}, {beta}")
+    #print(f"alpha, beta = {alpha}, {beta}")
     return (alpha, beta)
 
 def generate_all_pairs_for(alpha):
@@ -72,4 +72,70 @@ def xordle():
 
 xordle()
 
-print(len(all_valid_pairs()))
+#print(len(all_valid_pairs()))
+
+class Constraint:
+    pass
+
+class NotLetterInColumn(Constraint):
+    def __init__(self, letter: str, col: int):
+        self.letter = letter
+        self.column = col
+    def __call__(self, against: str):
+       #print(self.letter, self.column, against)
+       return against[self.column - 1] != self.letter
+
+class LetterInColumn(Constraint):
+    def __init__(self, letter: str, col: int):
+        self.letter = letter
+        self.column = col
+    def __call__(self, against: str):
+        return against[self.column - 1] == self.letter
+
+class LetterPresent(Constraint):
+    def __init__(self, letter: str):
+        self.letter = letter
+    def __call__(self, against: str):
+        return self.letter in against
+
+class LetterNotPresent(Constraint):
+    def __init__(self, letter: str):
+        self.letter = letter
+    def __call__(self, against: str):
+        return self.letter not in against
+
+def process_guess(guess: str, word: str):
+    res = []
+    for index, letter in enumerate(guess):
+        if letter == word[index]:
+            res.append(("green", letter))
+        elif letter in word and word[index] != letter and guess[:index + 1].count(letter) <= word.count(letter):
+            res.append(("yellow", letter))
+        elif letter in word and word[index] != letter and guess[:index + 1].count(letter) >  word.count(letter):
+            res.append(("grey", letter))
+        elif letter not in word:
+            res.append(("grey", letter))
+    return res
+
+# todo: process multiple letters
+# guess: event
+# word:  duvet
+
+print(process_guess("event", "duvet"))
+
+# not_z_second_col = NotLetterInColumn("z", 2)
+# not_z_fourth_col = NotLetterInColumn("z", 4)
+# print(not_z_second_col("pizza")) #      true
+# print(not_z_fourth_col("pizza")) #      false
+# i_second_col = LetterInColumn("i", 2) 
+# print(i_second_col("pizza")) #          true
+# i_fourth_col = LetterInColumn("i", 4)
+# print(i_fourth_col("pizza")) #          false
+# has_no_z = LetterNotPresent("z")
+# print(has_no_z("pizza")) #              false
+# print(has_no_z("court")) #              true
+# has_z = LetterPresent("z")
+# print(has_z("pizza")) #                 true
+# print(has_z("court")) #                 false
+
+
