@@ -117,11 +117,29 @@ def process_guess(guess: str, word: str):
             res.append(("grey", letter))
     return res
 
-# todo: process multiple letters
+def process_xor_guess(guess: str, a: str, b: str):
+    a_res = process_guess(guess, a)
+    b_res = process_guess(guess, b)
+    res = []
+    for a,b,g in zip(a_res, b_res, guess):
+        if a[0] == 'green' or b[0] == 'green':
+            res.append(('green', g))
+            continue
+        if a[0] == 'yellow' or b[0] == 'yellow':
+            res.append(('yellow', g))
+            continue
+        if a[0] == 'grey' or b[0] == 'grey':
+            res.append(('grey', g))
+    return res    
+
+print(process_xor_guess("davet", "dulls", "covet"))        
+
+
+
 # guess: event
 # word:  duvet
-
-print(process_guess("event", "duvet"))
+# print(process_guess("event", "duvet")) 
+# [('yellow', 'e'), ('yellow', 'v'), ('grey', 'e'), ('grey', 'n'), ('green', 't')]
 
 # not_z_second_col = NotLetterInColumn("z", 2)
 # not_z_fourth_col = NotLetterInColumn("z", 4)
